@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<head>
+    <title>Tic Tac Toe - Part 3</title> 
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color:white;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .status {
+            border: 2px solid black;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px); 
+            grid-template-rows: repeat(3, 100px);
+            gap: 5px;
+        }
+        .win-condition {
+            border: 2px solid black; 
+            padding: 10px;
+            margin-top: 20px;
+            font-size: 1.5em;
+            min-height: 30px;
+        }
+        .square {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3em;
+            font-weight: bold;
+            background-color: white;
+            border: 2px solid black;
+            cursor: pointer;
+        }
+        .square:hover {
+            background-color: lightgray;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var board = document.querySelector(".board");
+            var statusDiv = document.querySelector(".status");
+            var currentPlayer = "X";
+
+            for (var i = 0; i < 9; i++) {
+                var div = document.createElement("div");
+                div.classList.add("square");//styling
+                div.id = "sq" + i;
+                div.onclick = function(){
+                    if(this.innerText ===""){
+                        this.innerText =currentPlayer;
+                        alert("Square" + this.id.replace("sq", "")+ " clicked");
+                        currentPlayer = (currentPlayer === "X") ? "0": "X";
+                        statusDiv.innerText = "Turn: " + currentPlayer;
+                    }
+                }
+                board.appendChild(div);
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Tic Tac Toe</h1>
+    <div class="status">Turn: X</div>
+    <div class="board"></div>
+    <div class="win-condition">TBD</div>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<head>
+    <title>Tic Tac Toe - Part 2</title> 
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Makes the body take the full viewport height */
+            background-color:white;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .status {
+            border: 2px solid black;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px); 
+            grid-template-rows: repeat(3, 100px);
+            gap: 5px;
+        }
+        .win-condition {
+            border: 2px solid black; 
+            padding: 10px;
+            margin-top: 20px;
+            font-size: 1.5em;
+            min-height: 30px;
+        }
+        .square {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3em;
+            font-weight: bold;
+            background-color: white;
+            border: 2px solid black;
+            cursor: pointer;
+        }
+        .square:hover {
+            background-color: lightgray;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            let board = document.querySelector(".board");
+            board.innerHTML = ""; // Clear existing content
+            
+            for (let i = 0; i < 9; i++) {
+                let div = document.createElement("div");
+                div.classList.add("square");
+                div.id = "sq" + i;
+                board.appendChild(div);
+            }
+
+            document.getElementById("sq2").innerText = "X"; // R1, Col3
+            document.getElementById("sq3").innerText = "O"; // R2, Col1
+        }
+    </script>
+</head>
+<body>
+    <h1>Tic Tac Toe</h1>
+    <div class="status">Turn: X</div>
+    <div class="board"></div>
+    <div class="win-condition">TBD</div>
+</body>
+</html>

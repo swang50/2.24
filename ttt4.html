@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<head>
+    <title>Tic Tac Toe - Part 4</title> 
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; 
+            background-color:white;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .status, .win-condition {
+            border: 2px solid black;
+            padding: 10px;
+            margin-bottom: 20px;
+            margin-top: 30px;
+            font-size: 1.5em;
+            min-height: 30px;
+        }
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px); 
+            grid-template-rows: repeat(3, 100px);
+            gap: 5px;
+        }
+        .square {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3em;
+            font-weight: bold;
+            background-color: white;
+            border: 2px solid black;
+            cursor: pointer;
+        }
+        .square:hover {
+            background-color: lightgray;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var currentPlayer = "X";
+            var gameOver = false;
+            var board = document.querySelector(".board");
+            var statusDiv = document.querySelector(".status");
+            var winConditionDiv = document.querySelector(".win-condition");
+            statusDiv.innerText = "Turn: " + currentPlayer;
+            
+            for (var i = 0; i < 9; i++) {
+                var div = document.createElement("div");
+                div.classList.add("square");//styling
+                div.id = "sq" + i;
+                div.onclick = function() { 
+                    if (!gameOver && this.innerText === "") { //empty & gameover
+                        this.innerText = currentPlayer; 
+                        checkGameStatus(); 
+                        if (!gameOver) { 
+                            currentPlayer = (currentPlayer === "X") ? "O" : "X"; 
+                            statusDiv.innerText = "Turn: " + currentPlayer;
+                        }
+                    }
+                };
+                board.appendChild(div);
+            }
+        };
+
+        function checkGameStatus() {
+            var moves = [];
+            var squares = document.querySelectorAll(".square");
+
+            for(var i = 0; i < squares.length; i++){
+                moves.push(squares[i].innerText || "-"); //push XO- into moves array
+            }
+            
+            var winConditions = [
+                moves[0] + moves[1] + moves[2],
+                moves[3] + moves[4] + moves[5],
+                moves[6] + moves[7] + moves[8],
+                moves[0] + moves[3] + moves[6],
+                moves[1] + moves[4] + moves[7],
+                moves[2] + moves[5] + moves[8],
+                moves[0] + moves[4] + moves[8],
+                moves[2] + moves[4] + moves[6]
+            ];
+            
+            if (winConditions.includes("XXX")) {
+                document.querySelector(".win-condition").innerText = "X Wins!";
+                gameOver = true;
+            } else if (winConditions.includes("OOO")) {
+                document.querySelector(".win-condition").innerText = "O Wins!";
+                gameOver = true;
+            } else if (!moves.includes("-")) {
+                document.querySelector(".win-condition").innerText = "Stalemate!";
+                gameOver = true;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Tic Tac Toe</h1> 
+    <div class="status">Turn: X</div> 
+    <div class="board"></div>
+    <div class="win-condition">TBD</div>
+</body>
+</html>
